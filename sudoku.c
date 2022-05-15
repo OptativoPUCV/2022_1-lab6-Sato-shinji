@@ -93,8 +93,11 @@ int is_valid(Node* n){
       {
         for(j = 0; j < 3; j++)
         {
-          if(aux_arr[n->sudo[ini_i + i][ini_j + j] - 1]) return 0;
-          else aux_arr[n->sudo[ini_i + i][ini_j + j] - 1] = 1;
+          if(n->sudo[ini_i + i][ini_j + j] != 0)
+          {
+            if(aux_arr[n->sudo[ini_i + i][ini_j + j] - 1]) return 0;
+            else aux_arr[n->sudo[ini_i + i][ini_j + j] - 1] = 1;
+          }
         }
       }
       if(ini_j < 6) {ini_j +=3;}

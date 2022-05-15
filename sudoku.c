@@ -43,7 +43,63 @@ void print_node(Node* n){
     printf("\n");
 }
 
+void fill_aux_arr (int *arr, int size)
+{
+  int i;
+  for(i = 0; i < size; i++)
+  {
+    arr[i] = 0;
+  }
+}
+
 int is_valid(Node* n){
+    int i, j, ini_i, ini_j, k, aux_arr[9];
+
+    //Filas
+    for(i = 0; i < 9; i++)
+    {
+      fill_aux_arr(aux_arr, 9);
+      for(j = 0; j < 9; j++)
+      {
+        if(n->sudo[i][j] != 0)
+        {
+          if(aux_arr[n->sudo[i][j] - 1]) return 0;
+          else aux_arr[n->sudo[i][j] - 1] = 1;
+        }
+      }
+    }
+
+    //Columnas
+    for(i = 0; i < 9; i++)
+    {
+      fill_aux_arr(aux_arr, 9);
+      for(j = 0; j < 9; j++)
+      {
+        if(n->sudo[j][i] != 0)
+        {
+          if(aux_arr[n->sudo[j][i] - 1]) return 0;
+          else aux_arr[n->sudo[j][i] - 1] = 1;
+        }
+      }
+    }
+
+    //Submatrices
+    ini_i = 0;
+    ini_j = 0;
+    for(k = 0; k < 9; k++)
+    {
+      fill_aux_arr(aux_arr, 9);
+      for(i = 0; i < 3; i++)
+      {
+        for(j = 0; j < 3; j++)
+        {
+          if(aux_arr[n->sudo[ini_i + i][ini_j + j] - 1]) return 0;
+          else aux_arr[n->sudo[ini_i + i][ini_j + j] - 1] = 1;
+        }
+      }
+      if(ini_j < 6) {ini_j +=3;}
+      else {ini_j = 0; ini_i += 3;}
+    }
 
     return 1;
 }
